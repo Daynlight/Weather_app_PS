@@ -1,6 +1,5 @@
 package org.example;
 
-import org.example.WeatherAppAPI;
 import org.example.Terminal;
 import org.example.JsonParser;
 import org.example.StatsData;
@@ -24,8 +23,12 @@ import com.itextpdf.layout.element.Paragraph;
 class Statistics{
   private JsonParser json = new JsonParser();
   private Terminal terminal = new Terminal();
-  private WeatherAppAPI api = new WeatherAppAPI();
+  String json_data = null;
 
+
+  public Statistics(String json_data){
+    this.json_data = json_data;
+  };
 
   public void print(){
     terminal.printLog("Printing Statistics");
@@ -37,7 +40,12 @@ class Statistics{
   };
 
   private double avgTemp(){
-    double avgTemp = json.getRootsFromApi(api.get()).stream()
+    if(json_data == null) {
+      terminal.printWarning("Json data is empty: " + json_data);
+      return 0.0;
+    };
+
+    double avgTemp = json.getRootsFromApi(json_data).stream()
       .map(Root::getSensordatavalues)
       .flatMap(List::stream)
       .filter(sd -> sd.getValue_type().equals("temperature"))
@@ -49,7 +57,12 @@ class Statistics{
   };
   
   private long highTemp(double value) {
-    long highTempCount = json.getRootsFromApi(api.get()).stream()
+    if(json_data == null) {
+      terminal.printWarning("Json data is empty: " + json_data);
+      return 0;
+    };
+
+    long highTempCount = json.getRootsFromApi(json_data).stream()
       .map(Root::getSensordatavalues)
       .flatMap(List::stream)
       .filter(sd -> sd.getValue_type().equals("temperature") && 
@@ -61,7 +74,12 @@ class Statistics{
   };
 
   private long highPM(double value){
-    long highPmCount = json.getRootsFromApi(api.get()).stream()
+    if(json_data == null) {
+      terminal.printWarning("Json data is empty: " + json_data);
+      return 0;
+    };
+
+    long highPmCount = json.getRootsFromApi(json_data).stream()
       .map(Root::getSensordatavalues)
       .flatMap(List::stream)
       .filter(sd -> sd.getValue_type().equals("P2") && 
@@ -73,7 +91,12 @@ class Statistics{
   };
 
   private double avgHumidity() {
-    double avgHumid =  json.getRootsFromApi(api.get()).stream()
+    if(json_data == null) {
+      terminal.printWarning("Json data is empty: " + json_data);
+      return 0.0;
+    };
+
+    double avgHumid =  json.getRootsFromApi(json_data).stream()
       .map(Root::getSensordatavalues)
       .flatMap(List::stream)
       .filter(sd -> sd.getValue_type().equals("humidity") && 
@@ -86,6 +109,11 @@ class Statistics{
   };
 
   public void saveAsXml(String filename) {
+    if(json_data == null) {
+      terminal.printWarning("Json data is empty: " + json_data);
+      return;
+    };
+
     try{
       XmlMapper xmlMapper = new XmlMapper();
       StatsData stats = new StatsData(avgTemp(), highTemp(25), avgHumidity(), highPM(25));
@@ -99,6 +127,11 @@ class Statistics{
   };
 
   public void saveAsJson(String filename) {
+    if(json_data == null) {
+      terminal.printWarning("Json data is empty: " + json_data);
+      return;
+    };
+
     try {
       ObjectMapper mapper = new ObjectMapper();
       StatsData stats = new StatsData(avgTemp(), highTemp(25), avgHumidity(), highPM(25));
@@ -111,6 +144,11 @@ class Statistics{
   };
 
   public void saveAsPdf(String filename) {
+    if(json_data == null) {
+      terminal.printWarning("Json data is empty: " + json_data);
+      return;
+    };
+
     try {
       PdfWriter writer = new PdfWriter(filename);
       PdfDocument pdf = new PdfDocument(writer);
