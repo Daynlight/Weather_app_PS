@@ -2,6 +2,7 @@ package org.example;
 
 import org.example.Statistics;
 import org.example.Terminal;
+import org.example.Config;
 
 import org.fusesource.jansi.Ansi.Color;
 
@@ -27,16 +28,15 @@ public class App {
     stop();
   };
 
-
   private void loop(){
     terminal.print("Zapisz jako:");
     terminal.print("P-Pdf J-Json X-xml Q-quit");
     String operation = terminal.getLine();
 
-    if(operation.trim().toUpperCase().equalsIgnoreCase("P")) statistics.saveAsPdf("stats.pdf");
-    else if(operation.trim().toUpperCase().equalsIgnoreCase("J")) statistics.saveAsJson("stats.json");
-    else if(operation.trim().toUpperCase().equalsIgnoreCase("X")) statistics.saveAsXml("stats.xml");
-    else if(operation.trim().toUpperCase().equalsIgnoreCase("Q")) is_running = false;
+    if(operation.trim().equalsIgnoreCase("P")) statistics.saveAsPdf("stats.pdf");
+    else if(operation.trim().equalsIgnoreCase("J")) statistics.saveAsJson("stats.json");
+    else if(operation.trim().equalsIgnoreCase("X")) statistics.saveAsXml("stats.xml");
+    else if(operation.trim().equalsIgnoreCase("Q")) is_running = false;
     else terminal.printWarning("Invalid operation: " + operation);
    };
 
@@ -44,6 +44,15 @@ public class App {
     terminal.print("===================", Color.GREEN);
     terminal.print("======= Bye =======", Color.GREEN);
     terminal.print("===================", Color.GREEN);
+  };
+
+  public void flags(String[] args){
+    for(String el : args){
+      if(el.trim().equals("-d") || 
+         el.trim().equals("--debug")) Config.DEBUG = true;
+      else 
+        terminal.printWarning("Unknown arg: " + el);
+    };
   };
 
 };
