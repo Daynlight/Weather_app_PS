@@ -41,15 +41,31 @@ public class App {
    };
 
   private void stop(){
-    terminal.print("===================", Color.GREEN);
     terminal.print("======= Bye =======", Color.GREEN);
-    terminal.print("===================", Color.GREEN);
   };
 
   public void flags(String[] args){
     for(String el : args){
       if(el.trim().equals("-d") || 
-         el.trim().equals("--debug")) Config.DEBUG = true;
+         el.trim().equals("--debug")) {
+        Config.DEBUG = true;
+      }
+      else if(el.trim().equalsIgnoreCase("--JSON") || 
+              el.trim().equalsIgnoreCase("--JS") ||
+              el.trim().equalsIgnoreCase("-J")) {
+        statistics.saveAsJson("stats.json");
+        is_running = false;
+      }
+      else if(el.trim().equalsIgnoreCase("--XML") || 
+              el.trim().equalsIgnoreCase("-X")) {
+        statistics.saveAsXml("stats.xml");
+        is_running = false;
+      }
+      else if(el.trim().equalsIgnoreCase("--PDF") || 
+              el.trim().equalsIgnoreCase("-P")) {
+        statistics.saveAsPdf("stats.pdf");
+        is_running = false;
+      }
       else 
         terminal.printWarning("Unknown arg: " + el);
     };
