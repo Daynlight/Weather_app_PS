@@ -19,10 +19,8 @@ public class App {
     terminal.print("=== Weather App ===", Color.GREEN);
     terminal.print("===================", Color.GREEN);
 
+    terminal.print("Statistics");
     statistics.print();
-    statistics.saveAsXml("stats.xml");
-    statistics.saveAsJson("stats.json");
-    statistics.saveAsPdf("stats.pdf");
 
     while(is_running) loop();
 
@@ -31,8 +29,16 @@ public class App {
 
 
   private void loop(){
+    terminal.print("Zapisz jako:");
+    terminal.print("P-Pdf J-Json X-xml Q-quit");
+    String operation = terminal.getLine();
 
-  };
+    if(operation.trim().toUpperCase().equalsIgnoreCase("P")) statistics.saveAsPdf("stats.pdf");
+    else if(operation.trim().toUpperCase().equalsIgnoreCase("J")) statistics.saveAsJson("stats.json");
+    else if(operation.trim().toUpperCase().equalsIgnoreCase("X")) statistics.saveAsXml("stats.xml");
+    else if(operation.trim().toUpperCase().equalsIgnoreCase("Q")) is_running = false;
+    else terminal.printWarning("Invalid operation: " + operation);
+   };
 
   private void stop(){
     terminal.print("===================", Color.GREEN);
