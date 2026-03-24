@@ -68,12 +68,12 @@ public class Terminal {
   };
 
   private void writeToLogFile(String text){
-    File logFile = new File(Config.LOGFILEPATH);
+    File logFile = new File(Config.LOGFILEPATH + File.separator + "terminal.log");
     File parentDir = logFile.getParentFile();
 
     if (!parentDir.exists()) parentDir.mkdirs();
 
-    try (BufferedWriter writer = new BufferedWriter(new FileWriter(Config.LOGFILEPATH, true))) {
+    try (BufferedWriter writer = new BufferedWriter(new FileWriter(Config.LOGFILEPATH + File.separator + "terminal.log", true))) {
       List<String> lines = new ArrayList<>();
       if (logFile.exists()) lines = Files.readAllLines(logFile.toPath());
       while (lines.size() >= 10000) lines.remove(0);

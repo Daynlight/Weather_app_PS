@@ -18,7 +18,7 @@ public class App {
 
 
   public App(){
-    statistics = new Statistics(api.get());
+    statistics = new Statistics(api.get(Config.REQUESTURL));
   };
 
   public void run() {
