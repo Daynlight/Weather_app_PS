@@ -20,6 +20,7 @@ public class App {
     terminal.print("===================", Color.GREEN);
 
     statistics.print();
+    statistics.saveAsXml("stats.xml");
 
     while(is_running) loop();
 
