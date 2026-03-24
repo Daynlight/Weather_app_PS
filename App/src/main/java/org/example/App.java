@@ -21,6 +21,8 @@ public class App {
 
     statistics.print();
     statistics.saveAsXml("stats.xml");
+    statistics.saveAsJson("stats.json");
+    statistics.saveAsPdf("stats.pdf");
 
     while(is_running) loop();
 

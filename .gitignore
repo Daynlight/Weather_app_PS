@@ -2,3 +2,5 @@ build/
 .gradle/
 .log
 stats.xml
+stats.pdf
+stats.json

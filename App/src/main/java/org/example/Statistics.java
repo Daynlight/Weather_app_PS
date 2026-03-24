@@ -11,6 +11,11 @@ import kafka.model.Root;
 
 import org.fusesource.jansi.Ansi.Color;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Paragraph;
 
 
 
@@ -85,10 +90,40 @@ class Statistics{
       XmlMapper xmlMapper = new XmlMapper();
       StatsData stats = new StatsData(avgTemp(), highTemp(25), avgHumidity(), highPM(25));
       xmlMapper.writeValue(new File(filename), stats);
-      terminal.printLog("Xml is created");
+      terminal.printLog("XML is created");
     }
     catch (Exception e){
-      terminal.printError("when save to XML: " + e);
+      terminal.printError("save to XML: " + e);
+      e.printStackTrace();
+    }
+  };
+
+  public void saveAsJson(String filename) {
+    try {
+      ObjectMapper mapper = new ObjectMapper();
+      StatsData stats = new StatsData(avgTemp(), highTemp(25), avgHumidity(), highPM(25));
+      mapper.writerWithDefaultPrettyPrinter().writeValue(new File(filename), stats);
+      terminal.printLog("JSON is created");
+    } catch (Exception e) {
+      terminal.printError("when save to JSON: " + e);
+      e.printStackTrace();
+    }
+  };
+
+  public void saveAsPdf(String filename) {
+    try {
+      PdfWriter writer = new PdfWriter(filename);
+      PdfDocument pdf = new PdfDocument(writer);
+      Document document = new Document(pdf);
+      document.add(new Paragraph("Average Temperature: " + avgTemp()));
+      document.add(new Paragraph("High Temperature > 25: " + highTemp(25)));
+      document.add(new Paragraph("Average Humidity: " + avgHumidity()));
+      document.add(new Paragraph("High PM > 25: " + highPM(25)));
+      document.close();
+      terminal.printLog("PDF is created");
+    } catch (Exception e) {
+      terminal.printError("save to PDF: " + e);
+      e.printStackTrace();
     }
   };
 
