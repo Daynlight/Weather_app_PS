@@ -1,6 +1,6 @@
 package org.example;
 
-import org.example.WeatherAppAPI;
+import org.example.Statistics;
 import org.example.Terminal;
 
 import org.fusesource.jansi.Ansi.Color;
@@ -9,15 +9,17 @@ import org.fusesource.jansi.Ansi.Color;
 
 
 public class App {
-  private WeatherAppAPI api = new WeatherAppAPI();
   private Terminal terminal = new Terminal();
   private volatile boolean is_running = true;
+  private Statistics statistics = new Statistics();
 
 
   public void run() {
     terminal.print("===================", Color.BLUE);
     terminal.print("=== Weather App ===", Color.BLUE);
     terminal.print("===================", Color.BLUE);
+
+    statistics.print();
 
     while(is_running) loop();
 
@@ -26,7 +28,7 @@ public class App {
 
 
   private void loop(){
-    api.get();
+
   };
 
   private void stop(){
