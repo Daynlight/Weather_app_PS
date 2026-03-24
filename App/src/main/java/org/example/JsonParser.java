@@ -26,8 +26,8 @@ class JsonParser{
 
     try {
       ObjectMapper mapper = new ObjectMapper();
-      terminal.printLog("Parsing json to roots");
       roots =  mapper.readValue(api.get(), new TypeReference<List<Root>>() {});
+      terminal.printLog("Parsing json");
       terminal.printLog("Roots are cached");
     } catch (Exception e) {
       terminal.printError("Parsing Json Error: " + e);

@@ -15,9 +15,9 @@ public class App {
 
 
   public void run() {
-    terminal.print("===================", Color.BLUE);
-    terminal.print("=== Weather App ===", Color.BLUE);
-    terminal.print("===================", Color.BLUE);
+    terminal.print("===================", Color.GREEN);
+    terminal.print("=== Weather App ===", Color.GREEN);
+    terminal.print("===================", Color.GREEN);
 
     statistics.print();
 
@@ -32,9 +32,9 @@ public class App {
   };
 
   private void stop(){
-    terminal.print("===================", Color.BLUE);
-    terminal.print("======= Bye =======", Color.BLUE);
-    terminal.print("===================", Color.BLUE);
+    terminal.print("===================", Color.GREEN);
+    terminal.print("======= Bye =======", Color.GREEN);
+    terminal.print("===================", Color.GREEN);
   };
 
 };

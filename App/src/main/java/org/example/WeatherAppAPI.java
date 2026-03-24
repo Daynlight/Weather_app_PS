@@ -36,7 +36,7 @@ public class WeatherAppAPI {
       }
       else{
 
-        terminal.printLog("Request ended successfully");
+        terminal.printLog("Request complete");
 
         BufferedReader br = new BufferedReader(new InputStreamReader((response.getEntity().getContent())));
         StringBuilder sb = new StringBuilder();

@@ -18,12 +18,13 @@ class Statistics{
 
   public void print(){
     terminal.printLog("Printing Statistics");
+    json.getRootsFromApi();
 
-    for (Root root : json.getRootsFromApi()) {
-      if (root.getLocation() != null) {
-        terminal.print(root.getLocation().getCountry());
-      };
-    };
+    // for (Root root : json.getRootsFromApi()) {
+    //   if (root.getLocation() != null) {
+    //     terminal.print(root.getLocation().getCountry());
+    //   };
+    // };
   };
 
 };
