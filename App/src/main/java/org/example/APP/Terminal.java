@@ -19,7 +19,7 @@ import org.fusesource.jansi.Ansi.Color;
 
 
 public class Terminal {
-  private static Scanner scanner = new Scanner(System.in);
+  private Scanner scanner = new Scanner(System.in);
 
   public String getLine(){
     return scanner.nextLine();

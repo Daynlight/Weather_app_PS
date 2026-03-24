@@ -1,5 +1,7 @@
 package org.example;
 
+import org.example.Config;
+
 import org.junit.jupiter.api.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -16,6 +18,7 @@ class TerminalTest {
 
   @Test
   void print() {
+    Config.DEBUG = true;
     Terminal terminal = new Terminal();
 
     ByteArrayOutputStream outContent = new ByteArrayOutputStream();
@@ -33,6 +36,7 @@ class TerminalTest {
 
   @Test
   void printRedColor() {
+    Config.DEBUG = true;
     Terminal terminal = new Terminal();
 
     ByteArrayOutputStream outContent = new ByteArrayOutputStream();
@@ -50,6 +54,7 @@ class TerminalTest {
 
   @Test
   void printLog() {
+    Config.DEBUG = true;
     Terminal terminal = new Terminal();
 
     ByteArrayOutputStream outContent = new ByteArrayOutputStream();
@@ -68,6 +73,7 @@ class TerminalTest {
 
   @Test
   void printWarning() {
+    Config.DEBUG = true;
     Terminal terminal = new Terminal();
 
     ByteArrayOutputStream outContent = new ByteArrayOutputStream();
@@ -86,6 +92,7 @@ class TerminalTest {
 
   @Test
   void printError() {
+    Config.DEBUG = true;
     Terminal terminal = new Terminal();
 
     ByteArrayOutputStream outContent = new ByteArrayOutputStream();
@@ -104,6 +111,7 @@ class TerminalTest {
 
   @Test
   void getLine() {
+    Config.DEBUG = true;
     String simulatedInput = "Hello World\n";
     ByteArrayInputStream inContent = new ByteArrayInputStream(simulatedInput.getBytes());
 
